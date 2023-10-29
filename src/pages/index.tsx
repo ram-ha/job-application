@@ -22,156 +22,178 @@ export default function Home() {
         setSubmitData(data);
     };
     return (
-        <main>
-            <header>🏷️ Job Application Form 🏷️</header>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <section>
-                    <h1>What department do you want to work for?</h1>
-                    <span>{errors?.position?.message}</span>
-                    <label htmlFor="sales">
+        <div className="bg-slate-100 h-auto w-full flex items-center justify-center">
+            <main className="w-[440px] my-16 font-semibold bg-blue-100 border-2 border-black border-r-4 border-b-4 rounded-xl p-9">
+                <header className="text-center text-xl pb-6">🏷️ Job Application Form 🏷️</header>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+                    <section className="flex flex-col items-start justify-start">
+                        <h1 className="text-sm mb-2">
+                            What department do you want to work for?
+                            <span className="text-red-500 text-xs ml-1">{errors?.position?.message}</span>
+                        </h1>
+                        <label htmlFor="sales" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('position', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="sales"
+                                id="sales"
+                                className="mr-1"
+                            />
+                            Sales
+                        </label>
+                        <label htmlFor="marketing" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('position', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="marketing"
+                                id="marketing"
+                                className="mr-1"
+                            />
+                            Marketing
+                        </label>
+                        <label htmlFor="accounting" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('position', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="accounting"
+                                id="accounting"
+                                className="mr-1"
+                            />
+                            Accounting
+                        </label>
+                        <label htmlFor="cs" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('position', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="cs"
+                                id="cs"
+                                className="mr-1"
+                            />
+                            Customer Service
+                        </label>
+                    </section>
+                    <section className="flex flex-col items-start justify-start">
+                        <h1 className="text-sm mb-2">
+                            Why do you want to join this company?
+                            <span className="text-red-500 text-xs ml-1">{errors?.reason?.message}</span>
+                        </h1>
+                        <label htmlFor="money" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('reason', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="money"
+                                id="money"
+                                className="mr-1"
+                            />
+                            I want money!
+                        </label>
+                        <label htmlFor="love" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('reason', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="love"
+                                id="love"
+                                className="mr-1"
+                            />
+                            I love this company
+                        </label>
+                        <label htmlFor="learn" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('reason', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="learn"
+                                id="learn"
+                                className="mr-1"
+                            />
+                            learn I want to learn
+                        </label>
+                        <label htmlFor="unknown" className="flex items-center text-xs h-5">
+                            <input
+                                {...register('reason', {
+                                    required: '*required',
+                                })}
+                                type="radio"
+                                value="unknown"
+                                id="unknown"
+                                className="mr-1"
+                            />
+                            I don't know why
+                        </label>
+                    </section>
+                    <section>
+                        <h1 className="text-sm mb-2">Salary</h1>
+                        <select
+                            name="salary"
+                            id="salary"
+                            className="w-full border-2 border-blue-500 px-2 py-1 rounded-md"
+                        >
+                            <option value="50">$ 50K</option>
+                            <option value="100">$ 100K</option>
+                            <option value="150">$ 150K</option>
+                            <option value="200">$ 200K</option>
+                        </select>
+                    </section>
+                    <section className="flex flex-col items-start">
+                        <h1 className="text-sm mb-2">Introduce yourself</h1>
                         <input
-                            {...register('position', {
-                                required: '*required',
+                            {...register('introduce', {
+                                required: 'Please write down your introduction',
                             })}
-                            type="radio"
-                            value="sales"
-                            id="sales"
+                            type="text"
+                            className="w-full border-2 border-blue-500 px-2 py-1 rounded-md"
                         />
-                        Sales
-                    </label>
-                    <label htmlFor="marketing">
+                        <span className="text-xs pt-1 text-red-500">{errors.introduce?.message}</span>
+                    </section>
+                    <section className="flex flex-col items-start">
+                        <h1 className="text-sm mb-2">Tell us what your dreams are</h1>
+                        <textarea
+                            {...register('dream', {
+                                required: 'Please tell us what your dreams are',
+                                minLength: {
+                                    message: 'Please write more than 10 chars',
+                                    value: 10,
+                                },
+                            })}
+                            className="w-full border-2 border-blue-500 px-2 py-1 rounded-md"
+                        />
+                        <span className="text-xs pt-1 text-red-500">{errors.dream?.message}</span>
+                    </section>
+                    <section className="flex flex-col items-start">
+                        <h1 className="text-sm mb-2">Email</h1>
                         <input
-                            {...register('position', {
-                                required: '*required',
+                            {...register('email', {
+                                required: 'Please write down your email.',
+                                validate: {
+                                    naver: (text) => text.includes('@naver.com'),
+                                },
                             })}
-                            type="radio"
-                            value="marketing"
-                            id="marketing"
+                            type="email"
+                            className="w-full border-2 border-blue-500 px-2 py-1 rounded-md"
                         />
-                        Marketing
-                    </label>
-                    <label htmlFor="accounting">
-                        <input
-                            {...register('position', {
-                                required: '*required',
-                            })}
-                            type="radio"
-                            value="accounting"
-                            id="accounting"
-                        />
-                        Accounting
-                    </label>
-                    <label htmlFor="cs">
-                        <input
-                            {...register('position', {
-                                required: '*required',
-                            })}
-                            type="radio"
-                            value="cs"
-                            id="cs"
-                        />
-                        Customer Service
-                    </label>
-                </section>
-                <section>
-                    <h1>Why do you want to join this company?</h1>
-                    <span>{errors?.reason?.message}</span>
-                    <label htmlFor="money">
-                        <input
-                            {...register('reason', {
-                                required: '*required',
-                            })}
-                            type="radio"
-                            value="money"
-                            id="money"
-                        />
-                        I want money!
-                    </label>
-                    <label htmlFor="love">
-                        <input
-                            {...register('reason', {
-                                required: '*required',
-                            })}
-                            type="radio"
-                            value="love"
-                            id="love"
-                        />
-                        I love this company
-                    </label>
-                    <label htmlFor="learn">
-                        <input
-                            {...register('reason', {
-                                required: '*required',
-                            })}
-                            type="radio"
-                            value="learn"
-                            id="learn"
-                        />
-                        learn I want to learn
-                    </label>
-                    <label htmlFor="unknown">
-                        <input
-                            {...register('reason', {
-                                required: '*required',
-                            })}
-                            type="radio"
-                            value="unknown"
-                            id="unknown"
-                        />
-                        I don't know why
-                    </label>
-                </section>
-                <section>
-                    <h1>Salary</h1>
-                    <select name="salary" id="salary">
-                        <option value="50">$ 50K</option>
-                        <option value="100">$ 100K</option>
-                        <option value="150">$ 150K</option>
-                        <option value="200">$ 200K</option>
-                    </select>
-                </section>
-                <section>
-                    <h1>Introduce yourself</h1>
-                    <input
-                        {...register('introduce', {
-                            required: 'Please write down your introduction',
-                        })}
-                        type="text"
-                    />
-                    <span>{errors.introduce?.message}</span>
-                </section>
-                <section>
-                    <h1>Tell us what your dreams are</h1>
-                    <textarea
-                        {...register('dream', {
-                            required: 'Please tell us what your dreams are',
-                            minLength: {
-                                message: 'Please write more than 10 chars',
-                                value: 10,
-                            },
-                        })}
-                    />
-                    <span>{errors.dream?.message}</span>
-                </section>
-                <section>
-                    <h1>Email</h1>
-                    <input
-                        {...register('email', {
-                            required: 'Please write down your email.',
-                            validate: {
-                                naver: (text) => text.includes('@naver.com'),
-                            },
-                        })}
-                        type="email"
-                    />
-                    <span>
-                        {errors?.email?.message}
-                        {errors?.email?.type === 'naver' ? 'Only @naver is allowed' : null}
-                    </span>
-                </section>
-                <button>Give me this job</button>
-            </form>
-            {submitData && <span>{JSON.stringify(submitData)}</span>}
-        </main>
+                        <span className="text-xs pt-1 text-red-500">
+                            {errors?.email?.type === 'naver' ? 'Only @naver is allowed' : errors?.email?.message}
+                        </span>
+                    </section>
+                    <button className="w-full py-2 bg-sky-300 text-slate-800 rounded-md border-2 border-black border-r-4 border-b-4 hover:bg-sky-100">
+                        Give me this job
+                    </button>
+                </form>
+                {submitData && <span className="w-full break-all mt-1">{JSON.stringify(submitData)}</span>}
+            </main>
+        </div>
     );
 }
